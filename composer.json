@@ -1,0 +1,23 @@
+{
+  "name": "friendsoftypo3/headless_social_feed",
+  "type": "typo3-cms-extension",
+  "description": "Example",
+  "license": [
+    "GPL-2.0+"
+  ],
+  "authors": [
+    {
+      "name": "Patryk Miedziaszczyk",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "typo3/cms-core": "^11.5"
+  },
+  "extra": {
+    "typo3/cms": {
+      "web-dir": ".Build/public",
+      "extension-key": "headless_social_feed"
+    }
+  }
+}
