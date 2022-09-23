@@ -21,11 +21,10 @@
                 <f:format.json value="{
                     uid: feedsItem.uid,
                     title: feedsItem.title,
-                    crdate: '{f:if(condition: feedsItem.crdate, then: \'{feedsItem.crdate -> f:format.date(format: settings.dateFormat)}\')}',
-                    tstamp: '{f:if(condition: feedsItem.tstamp, then: \'{feedsItem.tstamp -> f:format.date(format: settings.dateFormat)}\')}',
                     postdate: feedsItem.postDate,
                     message: feedsItem.message,
                     postUrl: feedsItem.postUrl,
+                    image: feedsItem.image,
                     likes: feedsItem.likes
                 }"/>
             </f:format.raw>
