@@ -9,7 +9,8 @@ class FacebookFeedUpdater extends \Pixelant\PxaSocialFeed\Feed\Update\FacebookFe
 {
     protected function encodeMessage(string $message): string
     {
-        return substr(json_encode($message, JSON_UNESCAPED_UNICODE), 1, -1);
+        $message = substr(json_encode($message, JSON_UNESCAPED_UNICODE), 1, -1);
+        return base64_encode($message);
     }
 
     protected function updateFeedItem(Feed $feedItem, array $rawData, Configuration $configuration): void
@@ -29,5 +30,13 @@ class FacebookFeedUpdater extends \Pixelant\PxaSocialFeed\Feed\Update\FacebookFe
         $this->emitSignal('beforeUpdateFacebookFeed', [$feedItem, $rawData, $configuration]);
 
         $this->addOrUpdateFeedItem($feedItem);
+    }
+
+    protected function setFacebookData(Feed $feed, array $rawData): void
+    {
+        parent::setFacebookData($feed, $rawData);
+        $title = iconv('UTF-8', 'ISO-8859-15//IGNORE', $rawData['message']);
+        $title = preg_replace('/\s+/', ' ', $title);
+        $feed->setTitle(iconv('ISO-8859-15', 'UTF-8', $title));
     }
 }

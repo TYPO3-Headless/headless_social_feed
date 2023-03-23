@@ -18,3 +18,5 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\Pixelant\PxaSocialFeed\Domain\Mod
         \Pixelant\PxaSocialFeed\Domain\Model\Feed::class,
         \FriendsOfTYPO3\HeadlessSocialFeed\Domain\Model\Feed::class
     );
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals'][\FriendsOfTYPO3\HeadlessSocialFeed\Evaluation\FeedMessageEvaluation::class] = '';

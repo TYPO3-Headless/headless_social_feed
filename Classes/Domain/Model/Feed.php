@@ -13,4 +13,10 @@ class Feed extends \Pixelant\PxaSocialFeed\Domain\Model\Feed
     public function setComments(int $comments) {
         $this->comments = $comments;
     }
+
+    public function getMessage(): string
+    {
+        $message = parent::getMessage();
+        return base64_decode($message);
+    }
 }
