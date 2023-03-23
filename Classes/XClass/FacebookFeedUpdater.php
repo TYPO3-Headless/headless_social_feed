@@ -31,12 +31,4 @@ class FacebookFeedUpdater extends \Pixelant\PxaSocialFeed\Feed\Update\FacebookFe
 
         $this->addOrUpdateFeedItem($feedItem);
     }
-
-    protected function setFacebookData(Feed $feed, array $rawData): void
-    {
-        parent::setFacebookData($feed, $rawData);
-        $title = iconv('UTF-8', 'ISO-8859-15//IGNORE', $rawData['message']);
-        $title = preg_replace('/\s+/', ' ', $title);
-        $feed->setTitle(iconv('ISO-8859-15', 'UTF-8', $title));
-    }
 }
