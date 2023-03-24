@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  FriendsOfTYPO3\HeadlessSocialFeed\:
+    resource: '../Classes/*'
+
+  FriendsOfTYPO3\HeadlessSocialFeed\Command\AuthorizationCommand:
+    tags:
+      - name: console.command
+        command: 'headlesssocialfeed:authorization'
+        description: 'Test'
