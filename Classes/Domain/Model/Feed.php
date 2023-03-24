@@ -20,17 +20,7 @@ class Feed extends \Pixelant\PxaSocialFeed\Domain\Model\Feed
     public function getMessage(): string
     {
         $message = parent::getMessage();
-        return base64_decode($message);
-    }
-
-    protected array $postDateNew = [];
-
-    public function getPostDateNew(): array
-    {
-        $result = [
-            "date" => date_format($this->getPostDate(), "d.m.Y"),
-        ];
-        ArrayUtility::mergeRecursiveWithOverrule($result, (array)$this->getPostDate()->getTimezone());
-        return $result;
+        $message = base64_decode($message);
+        return str_replace("\\n", "\n", $message);
     }
 }

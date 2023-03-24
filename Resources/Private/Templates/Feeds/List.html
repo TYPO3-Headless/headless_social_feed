@@ -21,7 +21,7 @@
                 <f:format.json value="{
                     uid: feedsItem.uid,
                     title: feedsItem.title,
-                    date: feedsItem.postDateNew,
+                    date: '{feedsItem.postDate -> f:format.date(format: \'d.m.Y\')}',
                     message: feedsItem.message,
                     url: feedsItem.postUrl,
                     image: feedsItem.image,
