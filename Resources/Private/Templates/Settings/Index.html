@@ -1,0 +1,22 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+     xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+    <f:layout name="Backend/Default" />
+    <f:section name="content">
+        <f:form action="create" style="display: block;">
+            <f:form.textfield name="uid" value="{uid}" style="display: none;" />
+            <label for="name">Name: </label><f:form.textfield name="name" value="{name}" style="display: block; margin-top: 1rem;" required="true" />
+            <label for="appId">App ID: </label><f:form.textfield name="appId" value="{appId}" style="display: block; margin-top: 1rem;" required="true" />
+            <label for="appSecret">App Secret: </label><f:form.textfield name="appSecret" value="{appSecret}" style="display: block; margin-top: 1rem;" required="true" />
+            <label for="storage">Storage: </label><f:form.textfield name="storage" value="{storage}" style="display: block; margin-top: 1rem;" required="true" />
+            <label for="maxItems">Max items: </label><f:form.textfield name="maxItems" value="{maxItems}" style="display: block; margin-top: 1rem;" required="true" />
+            <label for="pageName">Page name: </label><f:form.textfield name="pageName" value="{pageName}" style="display: block; margin-top: 1rem;" required="true" />
+            <f:form.submit value="Create/Update"  style="display: block; margin-top: 1rem;" />
+        </f:form>
+        <div style="display: block; margin-top: 1rem;">
+            <f:link.action action="import" class="btn btn-default" title="TEST" style="margin-right: 1rem;">
+                Import
+            </f:link.action>
+        </div>
+    </f:section>
+</div>

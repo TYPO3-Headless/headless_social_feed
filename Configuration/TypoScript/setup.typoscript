@@ -7,17 +7,13 @@ tt_content.list {
                 data {
                     key.field = list_type
 
-                    pxasocialfeed_showfeed = USER
-                    pxasocialfeed_showfeed {
+                    headlesssocialfeed_feed = USER
+                    headlesssocialfeed_feed {
                         userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-                        vendorName = Pixelant
-                        extensionName = PxaSocialFeed
-                        pluginName = Showfeed
-                        controller = Feeds
-
-                        view < plugin.tx_pxasocialfeed.view
-                        persistence < plugin.tx_pxasocialfeed.persistence
-                        settings < plugin.tx_pxasocialfeed.settings
+                        vendorName = FriendsOfTYPO3
+                        extensionName = HeadlessSocialFeed
+                        pluginName = Feed
+                        controller = Feed
                     }
                 }
             }
