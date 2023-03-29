@@ -73,6 +73,14 @@ return (function() {
                     'eval' => 'trim,required'
                 ],
             ],
+            'url' => [
+                'exclude' => 1,
+                'label' => 'Url',
+                'config' => [
+                    'type' => 'input',
+                    'eval' => 'trim,required'
+                ],
+            ],
         ],
         'types' => [
             '0' => ['showitem' => 'message'],

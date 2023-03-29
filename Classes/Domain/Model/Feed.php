@@ -37,6 +37,11 @@ class Feed extends AbstractEntity
     protected int $comments = 0;
 
     /**
+     * @var string
+     */
+    protected string $url = '';
+
+    /**
      * @return int
      */
     public function getPid(): int
@@ -138,5 +143,21 @@ class Feed extends AbstractEntity
     public function setComments(int $comments): void
     {
         $this->comments = $comments;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
     }
 }

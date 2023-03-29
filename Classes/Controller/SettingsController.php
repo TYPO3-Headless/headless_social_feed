@@ -9,6 +9,7 @@ use FriendsOfTYPO3\HeadlessSocialFeed\Domain\Model\Configuration;
 use FriendsOfTYPO3\HeadlessSocialFeed\Domain\Model\Feed;
 use FriendsOfTYPO3\HeadlessSocialFeed\Domain\Repository\ConfigurationRepository;
 use FriendsOfTYPO3\HeadlessSocialFeed\Domain\Repository\FeedRepository;
+use JsonException;
 use RuntimeException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -108,35 +109,35 @@ class SettingsController extends ActionController
             $fb = $this->getFacebookObject($configuration->getAppId(), $configuration->getAppSecret());
             $fb->setDefaultAccessToken($configuration->getPageAccessToken());
 
-            $response = $fb->get("/{$configuration->getPageId()}/feed?fields=id,created_time,message,full_picture,comments.summary(true).limit(0),reactions.summary(true).limit(0)&limit={$configuration->getMaxItems()}");
-            $posts = $response->getGraphEdge();
+            $response = $fb->get("/{$configuration->getPageId()}/feed?fields=id,created_time,message,full_picture,comments.summary(true).limit(0),reactions.summary(true).limit(0),permalink_url&limit={$configuration->getMaxItems()}");
+            $posts = json_decode($response->getBody(), false, 512, JSON_THROW_ON_ERROR);
 
-            foreach ($posts as $post) {
+            foreach ($posts->data as $post) {
                 $create = false;
-                $post = $post->asArray();
-                $feed = $this->feedRepository->findByUid($post['id']);
+                $feed = $this->feedRepository->findByExternalUid($post->id);
                 if (!$feed) {
                     $create = true;
                     $feed = GeneralUtility::makeInstance(Feed::class);
                 }
-                $feed->setExternalUid($post['id']);
-                $feed->setComments(($post['comments']['summary']['total_count']) ?: 0);
-                if ($post['full_picture']) {
-                    $image = $this->saveImage($post['full_picture']);
+                $feed->setExternalUid($post->id);
+                $feed->setComments(($post->comments->summary->total_count) ?: 0);
+                if ($post->full_picture) {
+                    $image = $this->saveImage($post->full_picture);
                     if ($image) {
                         $feed->setImage($image);
                     } else {
-                        $feed->setImage($post['full_picture']);
+                        $feed->setImage($post->full_picture);
                     }
                 }
-                $feed->setLikes(($post['reactions']['summary']['total_count']) ?: 0);
-                $feed->setMessage(($post['message']) ?: '');
-                if ($post['created_time'] && is_a($post['created_time'], 'DateTime')) {
-                    $feed->setDateTime($post['created_time']->getTimestamp());
+                $feed->setLikes(($post->reactions->summary->total_count) ?: 0);
+                $feed->setMessage(($post->message) ?: '');
+                if ($post->created_time) {
+                    $feed->setDateTime(strtotime($post->created_time));
                 } else {
                     $feed->setDateTime(0);
                 }
                 $feed->setPid($configuration->getStorage());
+                $feed->setUrl(($post->permalink_url) ?: '');
                 if ($create) {
                     $this->feedRepository->add($feed);
                 } else {
@@ -144,7 +145,7 @@ class SettingsController extends ActionController
                 }
             }
             $this->persistenceManager->persistAll();
-        } catch (RuntimeException|FacebookSDKException|IllegalObjectTypeException|UnknownObjectException $e) {
+        } catch (RuntimeException|FacebookSDKException|IllegalObjectTypeException|UnknownObjectException|JsonException $e) {
             $result['message'] = $e->getMessage();
         }
         $this->view->assignMultiple($result);
@@ -208,13 +209,12 @@ class SettingsController extends ActionController
         $fullUrl = $imageUrl;
         $imageUrl = strtok($imageUrl, "?");
         $filename = basename($imageUrl);
-        $filetype = pathinfo($filename, PATHINFO_EXTENSION);
         $fileContent = file_get_contents($fullUrl);
         $filepath = $targetPath . $filename;
 
         if ($fileContent !== false) {
             file_put_contents($filepath, $fileContent);
-            return $imageUrl;
+            return $filename;
         }
         return false;
     }
