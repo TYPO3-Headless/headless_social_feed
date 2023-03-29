@@ -1,0 +1,7 @@
+plugin.tx_pxasocialfeed {
+    view {
+        templateRootPath = EXT:headless_social_feed/Resources/Private/Templates/
+        partialRootPath = EXT:headless_social_feed/Resources/Private/Partials/
+        layoutRootPath = EXT:headless_social_feed/Resources/Private/Layouts/
+    }
+}

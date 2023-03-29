@@ -1,0 +1,18 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+     xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+    <f:layout name="Backend/Default" />
+    <f:section name="content">
+        <f:if condition="{url}">
+            <f:then>
+                <a href="{url}" target="_blank">Log in with Facebook</a>
+            </f:then>
+            <f:else if="{message}">
+                {message}
+            </f:else>
+            <f:else>
+                Something went wrong...
+            </f:else>
+        </f:if>
+    </f:section>
+</div>

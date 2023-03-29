@@ -1,0 +1,34 @@
+<div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:spaceless>
+        {"list": [<f:for each="{feeds}" as="feedsItem" iteration="feedsIterator">
+            <f:render section="FeedsListView" arguments="{feedsItem: feedsItem, settings:settings, iterator:iterator}" />
+                {f:if(condition: feedsIterator.isLast, else: ',')}
+            </f:for>],
+                "settings":
+                <f:format.raw>
+                    <f:format.json value="{
+                    orderBy: settings.orderBy,
+                    orderDirection: settings.orderDirection,
+                    templateLayout: settings.templateLayout,
+                    action: 'list'
+                }"/>
+                </f:format.raw>
+                }
+    </f:spaceless>
+    <f:section name="FeedsListView">
+        <f:spaceless>
+            <f:format.raw>
+                <f:format.json value="{
+                    uid: feedsItem.uid,
+                    title: feedsItem.title,
+                    date: feedsItem.postDate,
+                    message: feedsItem.message,
+                    url: feedsItem.postUrl,
+                    image: feedsItem.image,
+                    likes: feedsItem.likes,
+                    comments: feedsItem.comments
+                }"/>
+            </f:format.raw>
+        </f:spaceless>
+    </f:section>
+</div>

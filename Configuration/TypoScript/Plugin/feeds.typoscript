@@ -1,0 +1,11 @@
+plugin.headlesssocialfeed_feed {
+    10 = USER_INT
+    10 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = HeadlessSocialFeed
+        pluginName = Feed
+        vendorName = FriendsOfTYPO3
+        controller = FeedController
+        action = listAction
+    }
+}
