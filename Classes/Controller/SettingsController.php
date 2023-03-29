@@ -43,7 +43,8 @@ class SettingsController extends ActionController
                 'storage' => $configuration->getStorage(),
                 'maxItems' => $configuration->getMaxItems(),
                 'pageId' => $configuration->getPageId(),
-                'pageName' => $configuration->getPageName()
+                'pageName' => $configuration->getPageName(),
+                'callbackUrl' => $configuration->getCallbackUrl(),
             ];
         }
         $this->view->assignMultiple($result);
@@ -73,7 +74,7 @@ class SettingsController extends ActionController
                             }
                         }
                     } else if ($configuration->getAppId() && $configuration->getAppSecret()) {
-                        $result['url'] = $this->generateLoginUrl($configuration->getAppId(), $configuration->getAppSecret());
+                        $result['url'] = $this->generateLoginUrl($configuration->getAppId(), $configuration->getAppSecret(), $configuration->getCallbackUrl());
                     } else {
                         $result['message'] = "No appId and appSecret provided";
                     }
@@ -85,9 +86,10 @@ class SettingsController extends ActionController
                     $configuration->setStorage($queryParams['storage']);
                     $configuration->setMaxItems($queryParams['maxItems']);
                     $configuration->setPageName($queryParams['pageName']);
+                    $configuration->setCallbackUrl($queryParams['callbackUrl']);
                     $this->configurationRepository->add($configuration);
                     $this->persistenceManager->persistAll();
-                    $result['url'] = $this->generateLoginUrl($configuration->getAppId(), $configuration->getAppSecret());
+                    $result['url'] = $this->generateLoginUrl($configuration->getAppId(), $configuration->getAppSecret(), $configuration->getCallbackUrl());
                 }
             } else {
                 $result['message'] = 'Wrong query parameters';
@@ -150,10 +152,10 @@ class SettingsController extends ActionController
         }
         $this->view->assignMultiple($result);
     }
-    protected function generateLoginUrl(string $appId, string $appSecret): string
+    protected function generateLoginUrl(string $appId, string $appSecret, string $callbackUrl): string
     {
         session_start();
-        $url = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+        $url = $callbackUrl;
         $url .= "?type=100&no_cache=1";
         return (new FacebookAuth($appId, $appSecret, $url))->getLoginUrl(['pages_show_list','pages_read_engagement','pages_manage_metadata','pages_read_user_content','pages_manage_posts','email']);
     }

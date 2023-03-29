@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace FriendsOfTYPO3\HeadlessSocialFeed\Domain\Model;
 
+use JsonException;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Feed extends AbstractEntity
@@ -83,18 +84,20 @@ class Feed extends AbstractEntity
 
     /**
      * @return string
+     * @throws JsonException
      */
     public function getMessage(): string
     {
-        return $this->message;
+        return json_decode($this->message, false, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
      * @param string $message
+     * @throws JsonException
      */
     public function setMessage(string $message): void
     {
-        $this->message = $message;
+        $this->message = json_encode($message, JSON_THROW_ON_ERROR);
     }
 
     /**
