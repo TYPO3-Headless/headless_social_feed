@@ -61,6 +61,11 @@ class Configuration extends AbstractEntity
     protected string $pageAccessToken = '';
 
     /**
+     * @var string
+     */
+    protected string $callbackUrl = '';
+
+    /**
      * @return string
      */
     public function getPageAccessToken(): string
@@ -209,5 +214,21 @@ class Configuration extends AbstractEntity
     public function setPageName(string $pageName): void
     {
         $this->pageName = $pageName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCallbackUrl(): string
+    {
+        return $this->callbackUrl;
+    }
+
+    /**
+     * @param string $callbackUrl
+     */
+    public function setCallbackUrl(string $callbackUrl): void
+    {
+        $this->callbackUrl = $callbackUrl;
     }
 }

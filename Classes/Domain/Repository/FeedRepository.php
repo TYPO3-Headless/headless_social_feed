@@ -7,7 +7,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class FeedRepository extends Repository
 {
-    public function findByExternalUid(string $externalUid): object
+    public function findByExternalUid(string $externalUid): ?object
     {
         $query = $this->createQuery();
 

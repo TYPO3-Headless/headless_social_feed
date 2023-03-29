@@ -101,6 +101,14 @@ return (function() {
                     'eval' => 'trim'
                 ],
             ],
+            'callback_url' => [
+                'exclude' => 1,
+                'label' => 'Callback',
+                'config' => [
+                    'type' => 'input',
+                    'eval' => 'trim,required'
+                ],
+            ],
         ],
         'types' => [
             '0' => ['showitem' => 'name, app_id, app_secret, max_items, storage, access_token'],
