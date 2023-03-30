@@ -1,0 +1,29 @@
+<T3DataStructure>
+    <sheets>
+        <!--
+            ################################
+              SHEET General Settings
+            ################################
+        -->
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>Feeds list view</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.maxShowItems>
+                        <TCEforms>
+                            <label>Maximum amount of items to show</label>
+                            <config>
+                                <type>input</type>
+                                <eval>required</eval>
+                                <max>250</max>
+                            </config>
+                        </TCEforms>
+                    </settings.maxShowItems>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>
