@@ -81,6 +81,14 @@ return (function() {
                     'eval' => 'trim,required'
                 ],
             ],
+            'title' => [
+                'exclude' => 1,
+                'label' => 'Title',
+                'config' => [
+                    'type' => 'input',
+                    'eval' => 'trim,required'
+                ],
+            ],
         ],
         'types' => [
             '0' => ['showitem' => 'message'],
