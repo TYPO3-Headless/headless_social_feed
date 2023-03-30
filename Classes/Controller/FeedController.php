@@ -4,17 +4,11 @@ namespace FriendsOfTYPO3\HeadlessSocialFeed\Controller;
 
 use DateTime;
 use Exception;
-use Facebook\Exceptions\FacebookSDKException;
-use Facebook\Facebook;
-use FriendsOfTYPO3\HeadlessSocialFeed\Domain\Model\Configuration;
 use FriendsOfTYPO3\HeadlessSocialFeed\Domain\Repository\FeedRepository;
 use JsonException;
-use RuntimeException;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
-use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 
 class FeedController extends ActionController
 {
@@ -29,10 +23,8 @@ class FeedController extends ActionController
     {
         try {
             $list = [];
-            $feeds = $this->feedRepository->findAll();
+            $feeds = $this->feedRepository->findAll()->getQuery()->setLimit((int)$this->settings['maxShowItems'])->execute();
             $feeds = $feeds->toArray();
-
-
 
             foreach ($feeds as $feed) {
                 $date = [

@@ -25,6 +25,12 @@ defined('TYPO3') or die('Access denied.');
         'HeadlessSocialFeed - Feed'
     );
 
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['headlesssocialfeed_feed'] = 'pi_flexform';
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+        'headlesssocialfeed_feed',
+        'FILE:EXT:headless_social_feed/Configuration/Flexform/feeds.xml'
+    );
+
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
         'tx_headlesssocialfeed_domain_model_configuration'
     );

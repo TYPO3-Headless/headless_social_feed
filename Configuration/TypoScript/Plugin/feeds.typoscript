@@ -1,4 +1,8 @@
 plugin.headlesssocialfeed_feed {
+    settings {
+        maxShowItems = flexform: pi_flexform:settings.maxShowItems
+    }
+
     10 = USER_INT
     10 {
         userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
