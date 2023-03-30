@@ -102,6 +102,12 @@ class SettingsController extends ActionController
 
     public function importAction(): void
     {
+        $result = $this->importFeeds();
+        $this->view->assignMultiple($result);
+    }
+
+    public function importFeeds(): array
+    {
         $result = [];
         try {
             $configuration = $this->configurationRepository->getConfiguration();
@@ -150,8 +156,9 @@ class SettingsController extends ActionController
         } catch (RuntimeException|FacebookSDKException|IllegalObjectTypeException|UnknownObjectException|JsonException $e) {
             $result['message'] = $e->getMessage();
         }
-        $this->view->assignMultiple($result);
+        return $result;
     }
+
     protected function generateLoginUrl(string $appId, string $appSecret, string $callbackUrl): string
     {
         session_start();
