@@ -42,7 +42,7 @@ class FeedController extends ActionController
                 }
                 $tempObject = [
                     "uid" => $feed->getUid(),
-                    "title" => $feed->getMessage(),
+                    "title" => $feed->getTitle(),
                     "date" => $date,
                     "message" => $feed->getMessage(),
                     "url" => $feed->getUrl(),

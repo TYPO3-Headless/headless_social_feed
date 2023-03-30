@@ -146,6 +146,7 @@ class SettingsController extends ActionController
                 }
                 $feed->setPid($configuration->getStorage());
                 $feed->setUrl(($post->permalink_url) ?: '');
+                $feed->setTitle("Facebook " . $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename']);
                 if ($create) {
                     $this->feedRepository->add($feed);
                 } else {

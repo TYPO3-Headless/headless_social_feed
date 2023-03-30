@@ -5,13 +5,13 @@ return (function() {
     return [
         'ctrl' => [
             'title' => 'Feed',
-            'label' => 'message',
+            'label' => 'title',
             'tstamp' => 'tstamp',
             'crdate' => 'crdate',
             'cruser_id' => 'cruser_id',
             'default_sortby' => 'crdate DESC',
             'delete' => 'deleted',
-            'searchFields' => 'message',
+            'searchFields' => 'title,message',
             'rootLevel' => 1
         ],
         'columns' => [
@@ -81,9 +81,17 @@ return (function() {
                     'eval' => 'trim,required'
                 ],
             ],
+            'title' => [
+                'exclude' => 1,
+                'label' => 'Title',
+                'config' => [
+                    'type' => 'input',
+                    'eval' => 'trim,required'
+                ],
+            ],
         ],
         'types' => [
-            '0' => ['showitem' => 'message'],
+            '0' => ['showitem' => 'title, message'],
         ]
     ];
 })();

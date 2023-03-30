@@ -43,6 +43,11 @@ class Feed extends AbstractEntity
     protected string $url = '';
 
     /**
+     * @var string
+     */
+    protected string $title = '';
+
+    /**
      * @return int
      */
     public function getPid(): int
@@ -162,5 +167,21 @@ class Feed extends AbstractEntity
     public function setUrl(string $url): void
     {
         $this->url = $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
     }
 }
