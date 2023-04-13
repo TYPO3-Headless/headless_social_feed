@@ -222,6 +222,10 @@ class SettingsController extends ActionController
         $fileContent = file_get_contents($fullUrl);
         $filepath = $targetPath . $filename;
 
+        if (file_exists($filepath)) {
+            return $filename;
+        }
+
         if ($fileContent !== false) {
             file_put_contents($filepath, $fileContent);
             return $filename;
