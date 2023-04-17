@@ -23,14 +23,12 @@ class FeedController extends ActionController
     {
         try {
             $list = [];
-            $feeds = $this->feedRepository->findAll();
+            $feeds = $this->feedRepository->findAll()->getQuery()->setLimit((int)$this->settings['maxShowItems'])->execute();
             $feeds = $feeds->toArray();
-
-
 
             foreach ($feeds as $feed) {
                 $date = [
-                    "date" => date("d.m.Y", 1679662313),
+                    "date" => date("d.m.Y", $feed->getDateTime()),
                 ];
                 $dateTime = new DateTime();
                 $dateTime->setTimestamp($feed->getDateTime());

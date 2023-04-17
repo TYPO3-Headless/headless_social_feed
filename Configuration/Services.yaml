@@ -6,3 +6,10 @@ services:
 
   FriendsOfTYPO3\HeadlessSocialFeed\:
     resource: '../Classes/*'
+
+  FriendsOfTYPO3\HeadlessSocialFeed\Command\ImportFeedsCommand:
+    tags:
+      - name: console.command
+        command: 'headlesssocialfeed:importfeeds'
+        description: 'Import feeds from default facebook configuration'
+        schedulable: true
