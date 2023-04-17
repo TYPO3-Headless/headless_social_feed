@@ -16,6 +16,7 @@ CREATE TABLE tx_headlesssocialfeed_domain_model_configuration
     page_id             varchar(255)        DEFAULT ''  NOT NULL,
     page_access_token   varchar(255)        DEFAULT ''  NOT NULL,
     callback_url        varchar(255)        DEFAULT ''  NOT NULL,
+    feeds_title         varchar(255)        DEFAULT ''  NOT NULL,
 
     tstamp              int(11) unsigned    DEFAULT '0' NOT NULL,
     crdate              int(11) unsigned    DEFAULT '0' NOT NULL,
