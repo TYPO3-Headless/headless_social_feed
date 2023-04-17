@@ -30,7 +30,7 @@ class FeedController extends ActionController
 
             foreach ($feeds as $feed) {
                 $date = [
-                    "date" => date("d.m.Y", 1679662313),
+                    "date" => date("d.m.Y", $feed->getDateTime()),
                 ];
                 $dateTime = new DateTime();
                 $dateTime->setTimestamp($feed->getDateTime());
