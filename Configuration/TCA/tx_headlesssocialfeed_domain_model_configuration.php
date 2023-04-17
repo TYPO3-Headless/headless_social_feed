@@ -109,6 +109,14 @@ return (function() {
                     'eval' => 'trim,required'
                 ],
             ],
+            'feeds_title' => [
+                'exclude' => 1,
+                'label' => 'Feeds title',
+                'config' => [
+                    'type' => 'input',
+                    'eval' => 'trim,required'
+                ],
+            ],
         ],
         'types' => [
             '0' => ['showitem' => 'name, app_id, app_secret, max_items, storage, access_token'],

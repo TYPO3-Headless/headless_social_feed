@@ -45,6 +45,7 @@ class SettingsController extends ActionController
                 'pageId' => $configuration->getPageId(),
                 'pageName' => $configuration->getPageName(),
                 'callbackUrl' => $configuration->getCallbackUrl(),
+                'feedsTitle' => $configuration->getFeedsTitle(),
             ];
         }
         $this->view->assignMultiple($result);
@@ -59,6 +60,7 @@ class SettingsController extends ActionController
                 if ($queryParams['uid']) {
                     $configuration = $this->configurationRepository->findByUid($queryParams['uid']);
                     if ($configuration && $configuration->getAccessToken()) {
+                        $configuration->setFeedsTitle($queryParams['feedsTitle']);
                         if ($configuration->getPageId() && $configuration->getPageAccessToken()) {
                             $result['message'] = 'Configuration fine';
                         } else {
@@ -66,13 +68,13 @@ class SettingsController extends ActionController
                             if ($pageData) {
                                 $configuration->setPageId($pageData['pageId']);
                                 $configuration->setPageAccessToken($pageData['pageAccessToken']);
-                                $this->configurationRepository->update($configuration);
-                                $this->persistenceManager->persistAll();
                                 $result['message'] = "Configuration fine";
                             } else {
                                 $result['message'] = 'An error occurred while getting page id';
                             }
                         }
+                        $this->configurationRepository->update($configuration);
+                        $this->persistenceManager->persistAll();
                     } else if ($configuration->getAppId() && $configuration->getAppSecret()) {
                         $result['url'] = $this->generateLoginUrl($configuration->getAppId(), $configuration->getAppSecret(), $configuration->getCallbackUrl());
                     } else {
@@ -87,6 +89,7 @@ class SettingsController extends ActionController
                     $configuration->setMaxItems($queryParams['maxItems']);
                     $configuration->setPageName($queryParams['pageName']);
                     $configuration->setCallbackUrl($queryParams['callbackUrl']);
+                    $configuration->setFeedsTitle($queryParams['feedsTitle']);
                     $this->configurationRepository->add($configuration);
                     $this->persistenceManager->persistAll();
                     $result['url'] = $this->generateLoginUrl($configuration->getAppId(), $configuration->getAppSecret(), $configuration->getCallbackUrl());
@@ -140,7 +143,7 @@ class SettingsController extends ActionController
                 }
                 $feed->setPid($configuration->getStorage());
                 $feed->setUrl(($post->permalink_url) ?: '');
-                $feed->setTitle("Facebook " . $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename']);
+                $feed->setTitle($configuration->getFeedsTitle());
                 if ($create) {
                     $this->feedRepository->add($feed);
                 } else {

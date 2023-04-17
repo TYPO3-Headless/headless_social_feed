@@ -66,6 +66,27 @@ class Configuration extends AbstractEntity
     protected string $callbackUrl = '';
 
     /**
+     * @var string
+     */
+    protected string $feedsTitle = '';
+
+    /**
+     * @return string
+     */
+    public function getFeedsTitle(): string
+    {
+        return $this->feedsTitle;
+    }
+
+    /**
+     * @param string $feedsTitle
+     */
+    public function setFeedsTitle(string $feedsTitle): void
+    {
+        $this->feedsTitle = $feedsTitle;
+    }
+
+    /**
      * @return string
      */
     public function getPageAccessToken(): string
