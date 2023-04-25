@@ -23,7 +23,9 @@ class FeedController extends ActionController
     {
         try {
             $list = [];
-            $feeds = $this->feedRepository->findAll()->getQuery()->setLimit((int)$this->settings['maxShowItems'])->execute();
+            $feeds = $this->feedRepository->findAll()->getQuery()->setOrderings([
+                'date_time' => 'DESC'
+            ])->setLimit((int)$this->settings['maxShowItems'])->execute();
             $feeds = $feeds->toArray();
 
             foreach ($feeds as $feed) {
