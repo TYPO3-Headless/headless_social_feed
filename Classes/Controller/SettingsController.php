@@ -214,7 +214,7 @@ class SettingsController extends ActionController
 
     protected function saveImage(string $imageUrl): bool|string
     {
-        $targetPath = '../fileadmin/headlesssocialfeed/';
+        $targetPath = GeneralUtility::getFileAbsFileName('fileadmin/headlesssocialfeed/');
         if (!is_dir($targetPath) && !mkdir($targetPath, 0777, true) && !is_dir($targetPath)) {
             return false;
         }
